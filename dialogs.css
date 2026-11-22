@@ -1,0 +1,65 @@
+/* Designed pop-ups (navy + amber, dark and light) */
+.dlg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(5, 9, 22, 0.65);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: dlgFade 0.18s ease both;
+}
+
+@keyframes dlgFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes dlgPop {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dlg-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 26px 24px 22px;
+  color: var(--text);
+  background: linear-gradient(160deg, var(--card-a), var(--card-b)), var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 22px;
+  box-shadow: 0 30px 80px var(--shadow);
+  animation: dlgPop 0.25s var(--ease) both;
+}
+
+.dlg-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.35rem;
+  color: var(--accent-text);
+}
+
+.dlg-message {
+  margin: 0 0 18px;
+  line-height: 1.5;
+  white-space: pre-line;
+  color: var(--text);
+}
+
+.dlg-input { margin-bottom: 8px; }
+
+.dlg-error {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  color: var(--danger);
+}
+
+.dlg-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+.dlg-actions button { flex: 1; }

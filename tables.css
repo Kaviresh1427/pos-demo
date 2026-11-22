@@ -1,0 +1,216 @@
+/* ===== Table Management page ===== */
+#orders-screen .menu-wrap { max-width: 1240px; }
+
+/* the old page header, the active-orders strip and the bottom bar are not used any more */
+#orders-screen .menu-header,
+#orders-screen .tv-strip,
+#orders-screen .tb-summary { display: none; }
+
+/* ----- toolbar ----- */
+.tb-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin: 0 0 20px;
+}
+.tb-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.tb-chip {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px var(--shadow);
+}
+.tb-chip:hover { background: var(--hover); box-shadow: none; }
+.tb-chip.active {
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border-color: transparent;
+  box-shadow: 0 8px 20px var(--btn-shadow);
+}
+.tb-tools { display: flex; align-items: center; gap: 10px; }
+.tb-search-input {
+  width: 200px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+}
+.tb-view {
+  display: flex;
+  padding: 3px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.tb-view-btn {
+  width: 40px;
+  padding: 8px 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: transparent;
+  border-radius: 9px;
+}
+.tb-view-btn:hover { box-shadow: none; background: var(--hover); }
+.tb-view-btn.active { color: var(--accent-text); background: var(--accent-soft); }
+.tb-reserve-btn {
+  width: auto;
+  padding: 10px 18px;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border-radius: 12px;
+}
+
+/* ----- grid of table cards ----- */
+#orders-screen .table-grid {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#orders-screen .table-btn.tb-card {
+  --st: #16A34A;
+  --st-chair: #8FDCA8;
+  --st-bg: linear-gradient(165deg, #E8F9EE, #F5FCF8);
+  --st-line: #C3EBD2;
+  --st-glow: rgba(22, 163, 74, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 210px;
+  padding: 22px 12px 18px;
+  color: var(--st);
+  background: var(--st-bg);
+  border: 1px solid var(--st-line);
+  border-radius: 24px;
+  box-shadow: 0 10px 26px var(--st-glow);
+  transition: transform 0.18s var(--ease), box-shadow 0.2s;
+}
+#orders-screen .table-btn.tb-card:hover {
+  transform: translateY(-3px);
+  color: var(--st);
+  background: var(--st-bg);
+  border-color: var(--st);
+  box-shadow: 0 16px 34px var(--st-glow);
+}
+#orders-screen .table-btn.tb-card.tb-st-occupied {
+  --st: #D92D3A;
+  --st-chair: #F5A3A9;
+  --st-bg: linear-gradient(165deg, #FFE9EB, #FFF6F6);
+  --st-line: #F8CACE;
+  --st-glow: rgba(217, 45, 58, 0.16);
+}
+#orders-screen .table-btn.tb-card.tb-st-reserved {
+  --st: #6A48C7;
+  --st-chair: #C3B2F0;
+  --st-bg: linear-gradient(165deg, #F0ECFF, #F8F6FF);
+  --st-line: #D9D0F5;
+  --st-glow: rgba(106, 72, 199, 0.16);
+}
+.tb-card[hidden] { display: none !important; }
+
+.tb-svg { width: 124px; height: 104px; max-width: 100%; }
+.tb-card .tb-chair { fill: var(--st-chair); opacity: 1; }
+.tb-card .tb-top { fill: #fff; stroke: var(--st-chair); stroke-width: 2.5; filter: drop-shadow(0 6px 8px var(--st-glow)); }
+.tb-card .tb-num {
+  fill: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+.tb-info { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tb-status { font-size: 1rem; font-weight: 700; color: var(--st); }
+.tb-time { font-size: 0.95rem; font-weight: 500; color: var(--st); min-height: 1.2em; }
+
+/* dark theme: softer tinted cards */
+[data-theme="dark"] #orders-screen .table-btn.tb-card { --st-bg: linear-gradient(165deg, rgba(22, 130, 78, 0.85), rgba(7, 62, 38, 0.92)); --st-line: rgba(76, 224, 140, 0.55); --st: #8CF5B8; --st-chair: rgba(140, 245, 184, 0.7); --st-glow: rgba(30, 200, 110, 0.28); }
+[data-theme="dark"] #orders-screen .table-btn.tb-card.tb-st-occupied { --st-bg: linear-gradient(165deg, rgba(168, 34, 40, 0.88), rgba(86, 14, 20, 0.92)); --st-line: rgba(255, 120, 120, 0.55); --st: #FFB0B0; --st-chair: rgba(255, 150, 150, 0.7); --st-glow: rgba(230, 60, 60, 0.28); }
+[data-theme="dark"] #orders-screen .table-btn.tb-card.tb-st-reserved { --st-bg: linear-gradient(165deg, rgba(104, 62, 190, 0.88), rgba(48, 22, 100, 0.92)); --st-line: rgba(190, 160, 255, 0.55); --st: #D9C8FF; --st-chair: rgba(200, 175, 255, 0.7); --st-glow: rgba(140, 90, 240, 0.28); }
+[data-theme="dark"] .tb-card .tb-top { fill: var(--panel); }
+
+/* ----- list view ----- */
+#orders-screen .table-grid.tb-list { grid-template-columns: 1fr; gap: 10px; }
+#orders-screen .tb-list .table-btn.tb-card {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 18px;
+  min-height: 0;
+  padding: 10px 22px;
+  border-radius: 18px;
+}
+.tb-list .tb-svg { width: 64px; height: 54px; flex: none; }
+.tb-list .tb-info { flex-direction: row; align-items: baseline; gap: 14px; margin-left: auto; }
+.tb-list .tb-num { font-size: 28px; }
+
+/* ----- pop-ups ----- */
+.tb-modal .tb-field-label { display: block; margin: 10px 0 4px; font-size: 0.85rem; color: var(--muted); }
+.tb-modal select,
+.tb-modal input { width: 100%; box-sizing: border-box; }
+.tb-actions-col { flex-direction: column; }
+.tb-actions-col button { width: 100%; }
+
+@media (max-width: 700px) {
+  .tb-tools { width: 100%; flex-wrap: wrap; }
+  .tb-search-input { flex: 1; width: auto; }
+}
+
+
+/* ----- Takeaway section ----- */
+.tb-ta { margin: 0 0 22px; }
+.tb-ta[hidden] { display: none; }
+.tb-ta-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.tb-ta-head h3 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+.tb-ta-count { font-size: 0.82rem; color: var(--muted); }
+.tb-ta-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 18px; }
+.tb-ta-empty { grid-column: 1 / -1; margin: 0; padding: 14px 16px; font-size: 0.9rem; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; }
+.tb-ta-card {
+  --st: var(--accent-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 150px;
+  padding: 16px 12px;
+  color: var(--text);
+  background: linear-gradient(165deg, rgba(222, 178, 70, 0.34), rgba(150, 105, 20, 0.2));
+  border: 1px solid rgba(222, 178, 70, 0.6);
+  border-radius: 24px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 10px 26px rgba(212, 160, 42, 0.18);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+}
+[data-theme="light"] .tb-ta-card { background: linear-gradient(165deg, #FFF6DD, #FFFBF0); border-color: #F0D88F; color: #4A3604; }
+.tb-ta-card:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 16px 34px rgba(212, 160, 42, 0.3); }
+.tb-ta-ic { width: 30px; height: 30px; color: #E6B948; }
+.tb-ta-no { font-size: 1.7rem; font-weight: 700; letter-spacing: 0.5px; }
+.tb-ta-status { font-size: 0.85rem; font-weight: 700; color: #E6B948; }
+[data-theme="light"] .tb-ta-status, [data-theme="light"] .tb-ta-ic { color: #B8860B; }
+.tb-ta-mid { font-size: 0.9rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tb-ta-time { font-size: 0.85rem; color: var(--muted); min-height: 1.2em; }
+.tb-ta-card .tb-ta-ic { order: -1; }
+.tb-takeaway-btn { background: var(--glass-btn-bg) !important; color: var(--text) !important; border: 1px solid var(--accent-line) !important; box-shadow: none !important; }
+/* a takeaway order has no table, so no "move table" */
+#order-screen[data-otype="takeaway"] .mv-btn { display: none; }
+#order-screen[data-otype="takeaway"] #sent-section { grid-template-columns: minmax(0, 1fr); }
+
+/* five chips + two buttons: keep the toolbar on one row */
+.tb-toolbar { flex-wrap: nowrap; }
+.tb-chips { flex-wrap: nowrap; gap: 8px; }
+.tb-chip { padding: 10px 16px; font-size: 0.88rem; white-space: nowrap; }
+.tb-search-input { width: 150px; }
+.tb-tools { flex: 0 0 auto; gap: 8px; }
+.tb-reserve-btn { padding: 10px 14px; font-size: 0.88rem; }
+@media (max-width: 1250px) { .tb-toolbar { flex-wrap: wrap; } }

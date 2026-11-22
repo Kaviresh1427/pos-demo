@@ -1,0 +1,146 @@
+/* ===== Tighter cart so Save order stays visible ===== */
+#order-screen .menu-header { margin: 0 0 10px; }
+#order-screen .menu-wrap > section:nth-of-type(2) { margin-bottom: 14px; }
+#order-screen #sent-list { max-height: 15vh; }
+#order-screen #sent-total { margin: 6px 0 10px; font-size: 0.95rem; }
+#order-screen #cancel-order-btn { padding: 8px; font-size: 0.85rem; }
+#order-screen #basket-list { max-height: 20vh; min-height: 0; }
+#order-screen #basket-total { margin: 10px 0; padding: 10px 14px; font-size: 1.2rem; }
+#order-screen #order-save-btn { padding: 13px; }
+/* ===== Compact "Already ordered" list (keeps the Basket visible) ===== */
+#order-screen #sent-list { max-height: 26vh; overflow-y: auto; padding-right: 4px; }
+#order-screen #sent-list .basket-line { flex-wrap: nowrap; padding: 9px 0; gap: 10px; }
+#order-screen #sent-list .menu-info { flex: 1; min-width: 0; }
+#order-screen #sent-list .basket-qty { flex: none; }
+#order-screen #sent-list .basket-qty button { padding: 6px 10px; }
+#order-screen #sent-section,
+#order-screen .menu-wrap > section:nth-of-type(3) { padding: 16px; }
+#order-screen #sent-section > h3,
+#order-screen .menu-wrap > section:nth-of-type(3) > h3 { margin-bottom: 8px; }
+/* ===== Order screen: menu on the left, order cart on the right ===== */
+#order-screen .menu-wrap {
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 0;
+  align-content: start;
+}
+#order-screen .menu-header { grid-column: 1 / -1; grid-row: 1; padding-right: 0; }
+#order-screen #order-message { grid-column: 1 / -1; grid-row: 2; }
+#order-screen .menu-wrap > section:nth-of-type(1) { grid-column: 1; grid-row: 3 / span 3; align-self: start; }
+#order-screen .menu-wrap > section:nth-of-type(2) { grid-column: 2; grid-row: 3; }
+#order-screen .menu-wrap > section:nth-of-type(3) { grid-column: 2; grid-row: 4; }
+
+/* ----- Dine-in / Bungkus switch ----- */
+#order-screen .serve-toggle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 6px;
+  padding: 5px;
+  margin-bottom: 14px;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+#order-screen .serve-toggle button { padding: 11px; border-radius: 10px; }
+#order-screen .serve-toggle button.secondary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+
+/* ----- Category pills ----- */
+#order-cats { margin-bottom: 16px; }
+#order-cats button { border-radius: 999px; padding: 9px 18px; white-space: nowrap; }
+
+/* ----- Menu cards ----- */
+#order-menu {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+  max-height: calc(100vh - 340px);
+  overflow-y: auto;
+  padding: 6px 6px 6px 2px;
+}
+#order-menu .order-item {
+  position: relative;
+  min-height: 112px;
+  justify-content: space-between;
+  padding: 14px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--card-a), var(--card-b));
+}
+#order-menu .order-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--btn-a), var(--btn-b));
+  opacity: 0.8;
+}
+#order-menu .order-item::after {
+  content: '+';
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border-radius: 10px;
+  box-shadow: 0 6px 16px var(--btn-shadow);
+}
+#order-menu .order-item strong { font-size: 1rem; line-height: 1.3; padding-bottom: 8px; }
+#order-menu .order-item .menu-price { font-size: 1.05rem; font-weight: 600; }
+#order-menu .order-item:hover { transform: translateY(-3px); border-color: var(--accent-line); }
+
+/* ----- Cart (Already ordered + Basket) ----- */
+#basket-list { max-height: max(180px, calc(100vh - 480px)); overflow-y: auto; }
+#order-screen .basket-line { padding: 12px 0; border-top: 1px solid var(--line); }
+#order-screen .basket-line:first-child { border-top: 0; }
+#order-screen .basket-qty button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+  border-radius: 10px;
+}
+#order-screen .basket-qty button:first-of-type {
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid var(--line);
+}
+#sent-list .basket-qty button { width: auto; height: auto; padding: 8px 12px; font-size: 0.85rem; }
+
+#order-screen #basket-total {
+  margin: 14px 0;
+  padding: 14px 16px;
+  font-size: 1.35rem;
+  text-align: center;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border-radius: 14px;
+  box-shadow: 0 8px 22px var(--btn-shadow);
+}
+#order-screen #basket-total:empty { display: none; }
+#sent-total { margin: 10px 0 14px; font-size: 1rem; color: var(--muted); }
+#order-save-btn { padding: 16px; font-size: 1.05rem; }
+#cancel-order-btn { width: 100%; }
+
+/* ----- Smaller screens: cart goes under the menu ----- */
+@media (max-width: 1100px) {
+  #order-screen .menu-wrap { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  #order-screen .menu-header,
+  #order-screen #order-message,
+  #order-screen .menu-wrap > section { grid-column: 1; grid-row: auto; }
+  #order-menu { max-height: none; }
+  #basket-list { max-height: none; }
+}

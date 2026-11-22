@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B7834">
+  <link rel="icon" type="image/svg+xml" href="demo-icon.svg">
+  <meta name="description" content="Try the restaurant POS system by Sarvesh Computer Enterprise. Live demo with sample data.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="POS Demo">
+  <title>Restaurant POS – Live Demo | Sarvesh Computer Enterprise</title>
+  <script src="theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="payment.css">
+  <!-- loaded here (not later by script) so the email/password page never flashes before the PIN pad -->
+  <link rel="stylesheet" href="pin-login.css">
+</head>
+<body>
+
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch between dark and light theme" title="Switch theme">
+    <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
+  <main id="login-screen" class="screen">
+    <div class="card">
+      <div class="logo">K</div>
+      <h1>Demo Restaurant</h1>
+      <p class="subtitle">Point of Sale</p>
+
+      <form id="login-form">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+
+        <p id="login-error" class="error" hidden></p>
+        <button id="login-btn" type="submit">Log in</button>
+      </form>
+    </div>
+  </main>
+
+  <main id="home-screen" class="screen" hidden>
+    <div class="card">
+      <div class="logo">K</div>
+      <h1 id="welcome"></h1>
+      <p id="role-badge" class="badge"></p>
+      <div class="stack">
+        <button id="orders-btn" type="button">Orders</button>
+        <button id="menu-btn" type="button" hidden>Menu management</button>
+        <button id="logout-btn" type="button" class="secondary">Log out</button>
+      </div>
+    </div>
+  </main>
+
+  <main id="menu-screen" class="screen menu-screen" hidden>
+    <div class="menu-wrap">
+      <div class="menu-header">
+        <button id="menu-back-btn" type="button" class="secondary small">&larr; Back</button>
+        <h2>Menu management</h2>
+      </div>
+
+      <p id="menu-message" class="menu-message" hidden></p>
+
+      <section class="menu-section">
+        <h3>Categories</h3>
+        <form id="cat-form" class="menu-form-row">
+          <input id="cat-name" type="text" placeholder="New category (e.g. Rice)" required>
+          <button type="submit" class="small">Add</button>
+        </form>
+        <div id="cat-list"></div>
+      </section>
+
+      <section class="menu-section">
+        <h3 id="item-form-title">Add menu item</h3>
+        <form id="item-form" class="menu-form">
+          <label for="item-name">Item name</label>
+          <input id="item-name" type="text" required>
+
+          <label for="item-category">Category</label>
+          <select id="item-category" required></select>
+
+          <label for="item-price">Price</label>
+          <div class="money-field">
+            <span>RM</span>
+            <input id="item-price" type="text" inputmode="numeric" autocomplete="off" value="0.00" required>
+          </div>
+
+          <div class="menu-form-actions">
+            <button id="item-save-btn" type="submit">Add item</button>
+            <button id="item-cancel-btn" type="button" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="menu-section">
+        <h3>Menu items</h3>
+        <div id="item-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <main id="orders-screen" class="screen menu-screen" hidden>
+    <div class="menu-wrap">
+      <div class="menu-header">
+        <button id="orders-back-btn" type="button" class="secondary small">&larr; Back</button>
+        <h2>Choose a table</h2>
+      </div>
+      <p id="orders-message" class="menu-message" hidden></p>
+      <div class="pay-open-wrap">
+        <button id="pay-open-btn" type="button">Take payment</button>
+      </div>
+      <div id="table-grid" class="table-grid"></div>
+    </div>
+  </main>
+
+  <main id="order-screen" class="screen menu-screen" hidden>
+    <div class="menu-wrap">
+      <div class="menu-header">
+        <button id="order-back-btn" type="button" class="secondary small">&larr; Tables</button>
+        <h2 id="order-title"></h2>
+      </div>
+      <p id="order-message" class="menu-message" hidden></p>
+
+      <section class="menu-section">
+        <h3>Add items as</h3>
+        <div class="serve-toggle">
+          <button id="serve-dinein" type="button">Dine-in</button>
+          <button id="serve-bungkus" type="button" class="secondary">Bungkus</button>
+        </div>
+        <div id="order-cats" class="cat-chips"></div>
+        <div id="order-menu" class="order-menu"></div>
+      </section>
+
+      <section id="sent-section" class="menu-section" hidden>
+        <h3>Already ordered</h3>
+        <div id="sent-list"></div>
+        <p id="sent-total" class="basket-total"></p>
+        <button id="cancel-order-btn" type="button" class="secondary small danger">Cancel whole order</button>
+      </section>
+
+      <section class="menu-section">
+        <h3>Basket</h3>
+        <div id="basket-list"></div>
+        <p id="basket-total" class="basket-total"></p>
+        <button id="order-save-btn" type="button">Save order</button>
+      </section>
+    </div>
+  </main>
+
+  <main id="payment-screen" class="screen menu-screen" hidden>
+    <div class="menu-wrap">
+      <div class="menu-header">
+        <button id="pay-back-btn" type="button" class="secondary small">&larr; Orders</button>
+        <h2>Take payment</h2>
+      </div>
+      <p id="pay-message" class="menu-message" hidden></p>
+
+      <div id="pay-main">
+        <section class="menu-section">
+          <h3>1. Tick the orders being paid</h3>
+          <div id="pay-list"></div>
+        </section>
+
+        <section class="menu-section">
+          <h3>2. Payment</h3>
+          <div class="pay-line"><span>Subtotal</span><span id="pay-subtotal">RM 0.00</span></div>
+          <div id="pay-rounding-line" class="pay-line" hidden><span>Rounding</span><span id="pay-rounding"></span></div>
+          <div class="pay-line pay-grand"><span>Total</span><span id="pay-total">RM 0.00</span></div>
+
+          <div class="serve-toggle pay-methods">
+            <button id="pay-cash-btn" type="button">Cash</button>
+            <button id="pay-qr-btn" type="button" class="secondary">DuitNow (QR)</button>
+          </div>
+
+          <div id="pay-cash-box">
+            <label for="pay-cash-input">Cash received</label>
+            <div class="money-field">
+              <span>RM</span>
+              <input id="pay-cash-input" type="text" inputmode="numeric" autocomplete="off" value="0.00">
+            </div>
+            <div id="pay-quick" class="pay-quick"></div>
+            <p id="pay-change" class="pay-change"></p>
+          </div>
+
+          <button id="pay-confirm-btn" type="button">Confirm payment</button>
+        </section>
+      </div>
+
+      <section id="pay-done" class="menu-section pay-done" hidden>
+        <h3>Payment complete</h3>
+        <div id="pay-done-text"></div>
+        <button id="pay-done-btn" type="button">Done</button>
+      </section>
+    </div>
+  </main>
+
+  <div id="reason-box" class="reason-overlay" hidden>
+    <div class="card">
+      <h3 id="reason-title"></h3>
+      <div id="reason-options" class="reason-options"></div>
+      <button id="reason-close" type="button" class="secondary small">Back</button>
+    </div>
+  </div>
+  <script type="module" src="demo-ui.js"></script>
+  <script type="module" src="app.js"></script>
+  <script type="module" src="payment.js"></script>
+  <script type="module" src="reports.js"></script>
+  <script type="module" src="vibe.js"></script>
+</body>
+</html>

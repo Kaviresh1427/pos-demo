@@ -1,0 +1,54 @@
+#receipt {
+  display: none;
+}
+
+.reprint-list {
+  max-height: 55vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.reprint-row {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+
+  body > *:not(#receipt) {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  #receipt {
+    display: block;
+    width: 72mm;
+    margin: 0 auto;
+    padding: 3mm 1mm;
+    box-sizing: content-box;
+    background: #fff;
+    color: #000;
+  }
+
+  /* same design as the screen: sizes are in em, so only the base size is set here */
+  #receipt .rcpt {
+    font-size: 10.5px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #receipt .rcpt .rv-thead { background: #ECECEC; }
+}

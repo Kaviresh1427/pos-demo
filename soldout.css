@@ -1,0 +1,11 @@
+.soldout-switch {
+  margin: 10px 0;
+}
+.order-item.is-soldout {
+  opacity: 0.45;
+}
+.order-item.is-soldout .soldout-tag {
+  font-weight: 700;
+  color: #dc2626;
+  letter-spacing: 0.05em;
+}

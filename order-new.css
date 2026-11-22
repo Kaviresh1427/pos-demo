@@ -1,0 +1,520 @@
+/* =========================================================
+   NEW ORDER PAGE (new design)
+   Left: categories, search and photo dish cards.
+   Right: Order Details (Dine-in / Takeaway / Delivery, items with + and -,
+   Proceed to Payment bar). This file is loaded last.
+   ========================================================= */
+
+#order-screen .menu-wrap {
+  max-width: 1700px;
+  grid-template-columns: minmax(0, 1fr) clamp(460px, 30vw, 580px);
+  column-gap: 24px;
+}
+
+/* ----- left: category chips, search, filters ----- */
+#order-screen #order-cats button { border-radius: 10px; }
+#order-screen .tv-search { border-radius: 10px; background: var(--panel); }
+
+/* ----- dish cards with photos ----- */
+/* every card has exactly the same size, and every price sits on the same line */
+#order-screen #order-menu {
+  grid-template-columns: repeat(auto-fill, 220px);
+  justify-content: start;
+  align-content: start;
+  gap: 18px;
+  max-height: calc(100vh - 190px);
+  padding: 4px 6px 28px 2px;
+}
+#order-screen #order-menu .order-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 220px;
+  height: 278px;
+  min-height: 278px;
+  padding: 10px 10px 0;
+  gap: 0;
+  text-align: left;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 1px 3px var(--shadow);
+  overflow: hidden;
+}
+#order-screen #order-menu .order-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-line);
+  box-shadow: 0 14px 30px var(--shadow);
+}
+#order-screen #order-menu .order-item .tv-photo,
+#order-screen #order-menu .order-item .tv-ph {
+  order: 0;
+  flex: 0 0 140px;
+  align-self: stretch;
+  width: 100%;
+  height: 140px;
+  margin: 0 0 10px;
+  border-radius: 14px;
+}
+#order-screen #order-menu .order-item .tv-photo { object-fit: cover; display: block; }
+#order-screen #order-menu .order-item .tv-ph {
+  display: grid;
+  place-items: center;
+  color: var(--accent-text);
+  background: linear-gradient(135deg, var(--accent-soft), rgba(222, 178, 70, 0.05));
+  border: 1px dashed var(--accent-line);
+}
+#order-screen #order-menu .order-item .tv-ph svg { opacity: 0.75; }
+/* name: always room for 2 lines, so the price row never moves */
+#order-screen #order-menu .order-item strong {
+  order: 2;
+  flex: 0 0 auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 2.6em;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+#order-screen #order-menu .order-item .tv-cat {
+  order: 1;
+  flex: 0 0 auto;
+  height: 1.3em;
+  margin: 0 0 3px;
+  padding: 0;
+  overflow: hidden;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--muted);
+}
+/* price (or SOLD OUT) always on the bottom line, same height as the two icons */
+#order-screen #order-menu .order-item .menu-price,
+#order-screen #order-menu .order-item .soldout-tag {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--accent-text);
+}
+#order-screen #order-menu .order-item .soldout-tag { color: var(--danger); }
+#order-screen #order-menu .order-item.is-soldout { opacity: 1; }
+#order-screen #order-menu .order-item.is-soldout .tv-photo,
+#order-screen #order-menu .order-item.is-soldout .tv-ph { filter: grayscale(1); opacity: 0.5; }
+#order-screen #order-menu .order-item.is-soldout strong { opacity: 0.6; }
+#order-screen #order-menu .order-item::after {
+  content: '+';
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px var(--btn-shadow);
+}
+
+/* ----- right: Order Details card ----- */
+#order-screen .menu-wrap > section:nth-of-type(2) {
+  grid-column: 2;
+  grid-row: 3;
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 104px);
+  margin: 0;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 1px 3px var(--shadow);
+  overflow: hidden;
+}
+#order-screen .menu-wrap > section:nth-of-type(2) > h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+#order-screen .tv-order-tag {
+  margin: 0;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+  border-radius: 8px;
+}
+
+/* Dine-in / Takeaway / Delivery */
+#order-screen .menu-wrap > section:nth-of-type(2) .serve-toggle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  margin: 0 0 14px;
+  background: var(--tag);
+  border: 0;
+  border-radius: 12px;
+}
+#order-screen .serve-toggle button { padding: 10px 6px; font-size: 0.86rem; border-radius: 9px; }
+#order-screen .serve-toggle button:not(.secondary) {
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  box-shadow: 0 4px 12px var(--btn-shadow);
+}
+#order-screen .serve-toggle button.od-locked { cursor: not-allowed; }
+#order-screen .serve-toggle button.secondary.od-locked { opacity: 0.45; }
+
+/* the scrolling list: ordered items, then new items */
+#order-screen .od-scroll { flex: 1 1 auto; min-height: 60px; overflow-x: hidden; overflow-y: auto; padding-right: 6px; }
+#order-screen .od-label,
+#order-screen #sent-section > h3 {
+  margin: 4px 0 4px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+#order-screen .od-label { margin-top: 14px; }
+
+#order-screen #sent-section {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+#order-screen #sent-list { max-height: none; overflow: visible; padding: 0; }
+#order-screen #sent-total { display: none; }
+#order-screen #cancel-order-btn,
+#order-screen #sent-section > button.secondary {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px;
+  font-size: 0.85rem;
+}
+#order-screen #basket-list { max-height: none; min-height: 0; overflow: visible; }
+
+/* item rows */
+#order-screen .od-scroll .basket-line {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+#order-screen .od-scroll .basket-line:first-child { border-top: 0; }
+/* + and - buttons */
+#order-screen #basket-list .basket-qty { display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-start; gap: 8px; }
+#order-screen #basket-list .basket-qty > button:nth-child(1),
+#order-screen #basket-list .basket-qty > button:nth-child(3) {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1.15rem;
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+#order-screen #basket-list .basket-qty > button:nth-child(3) {
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border: 0;
+}
+#order-screen #basket-list .basket-qty > strong { min-width: 22px; text-align: center; font-size: 1rem; }
+#order-screen #basket-list .basket-qty .menu-price { margin-left: auto; font-size: 0.98rem; font-weight: 700; }
+
+/* ----- summary, Proceed to Payment, Save, Clear ----- */
+#order-screen #basket-total {
+  margin: 14px 0 12px;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 0.92rem;
+  color: var(--muted);
+  background: var(--field);
+  border-radius: 14px;
+  box-shadow: none;
+}
+#order-screen #basket-total:empty { display: none; }
+
+#order-screen .od-proceed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 16px 20px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px var(--btn-shadow);
+}
+#order-screen .od-proceed .od-proceed-text::after { content: '  \2192'; }
+#order-screen .od-proceed-amount { font-size: 1.3rem; font-weight: 700; }
+#order-screen .od-proceed:disabled { opacity: 0.45; box-shadow: none; cursor: not-allowed; }
+#order-screen #order-save-btn { width: 100%; padding: 12px; font-size: 0.95rem; border-radius: 12px; }
+#order-screen .tv-clear { width: 100%; margin-top: 6px; padding: 10px; font-size: 0.88rem; font-weight: 500; color: var(--muted); }
+
+@media (max-width: 1100px) {
+  #order-screen .menu-wrap { grid-template-columns: minmax(0, 1fr); }
+  #order-screen .menu-wrap > section:nth-of-type(2) { grid-column: 1; grid-row: auto; position: static; max-height: none; }
+  #order-screen .od-scroll { overflow: visible; }
+  #order-screen #order-menu { max-height: none; }
+}
+
+/* ----- sold-out icon on each dish card (left of the + icon) ----- */
+#order-screen #order-menu .order-item .oi-soldout {
+  position: absolute;
+  right: 54px;
+  bottom: 10px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+#order-screen #order-menu .order-item .oi-soldout:hover { color: var(--danger); border-color: var(--danger-line); background: var(--danger-bg); }
+#order-screen #order-menu .order-item .oi-soldout.is-on { color: var(--on-accent); background: var(--danger); border-color: var(--danger); }
+#order-screen #order-menu .order-item.is-soldout::after { opacity: 0.35; box-shadow: none; }
+
+/* ----- price cell: "RM" in one straight column, numbers lined up on the right ----- */
+#order-screen .price-cell {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  width: 86px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+#order-screen .price-cell .pc-rm { font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+#order-screen .price-cell .pc-num { font-size: 0.98rem; font-weight: 700; color: var(--text); }
+/* same right edge as the already-ordered rows (they have a small arrow on the right), so every RM lines up */
+#order-screen #basket-list .basket-qty .price-cell { margin-left: auto; margin-right: 36px; }
+
+/* ----- Already ordered: clean rows. Tap a row to show Note / Cancel item ----- */
+#order-screen #sent-list .sent-row { display: block; padding: 0; gap: 0; }
+#order-screen .sent-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 86px 22px;
+  align-items: center;
+  column-gap: 10px;
+  padding: 13px 4px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+#order-screen .sent-top:hover { background: var(--hover); }
+#order-screen .sent-top:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+#order-screen .sent-chev { display: grid; place-items: center; color: var(--muted); transition: transform 0.2s; }
+#order-screen .sent-row.open .sent-chev { transform: rotate(180deg); color: var(--accent-text); }
+#order-screen .sent-row.open .sent-top { background: var(--accent-soft); }
+
+#order-screen .sent-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 2px 4px 14px; }
+#order-screen .sent-actions[hidden] { display: none; }
+#order-screen .sent-act {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: none;
+}
+#order-screen .sent-act:hover { background: var(--hover); box-shadow: none; }
+#order-screen .sent-act.sent-cancel { color: var(--danger); border-color: var(--danger-line); background: var(--danger-bg); }
+#order-screen .sent-act.sent-cancel:hover { background: var(--danger-line); }
+
+/* new items: the Note button is a small pencil icon, same size as + and - */
+#order-screen #basket-list .basket-qty > button.bk-note {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  min-width: 0;
+  padding: 0;
+  margin: 0 0 0 2px;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: none;
+}
+#order-screen #basket-list .basket-qty > button.bk-note.has-note { color: var(--accent-text); background: var(--accent-soft); border-color: var(--accent-line); }
+
+/* Cancel whole order / Move to another table: two small buttons side by side */
+#order-screen #sent-section { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8px; }
+#order-screen #sent-section > h3,
+#order-screen #sent-section > #sent-list,
+#order-screen #sent-section > #sent-total { grid-column: 1 / -1; }
+#order-screen #sent-section > button.secondary {
+  width: 100%;
+  height: 38px;
+  margin-top: 10px;
+  padding: 0 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+#order-screen #sent-section > #cancel-order-btn { color: var(--danger); }
+
+/* ----- cancel only some of the quantity ----- */
+#order-screen .sent-qty { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 2px 2px 0; }
+#order-screen .sent-qty-label { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+#order-screen .sent-qty-step { display: flex; align-items: center; gap: 6px; }
+#order-screen .sq-btn {
+  width: 36px; height: 36px; padding: 0;
+  display: grid; place-items: center;
+  font-size: 1.2rem; font-weight: 600; line-height: 1;
+  color: var(--text);
+  border-radius: 10px;
+}
+#order-screen .sq-btn:disabled { opacity: 0.35; cursor: default; }
+#order-screen .sq-num { min-width: 40px; text-align: center; font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
+
+#order-screen .sent-act:disabled { opacity: 0.4; cursor: default; }
+#order-screen .sent-act.sent-cancel:disabled:hover { background: var(--danger-bg); }
+
+/* ---------- Big Dine-in / Takeaway buttons above the categories ---------- */
+#order-screen .od-mode { display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 250px); gap: 12px; margin: 0 0 14px; flex: 0 0 100%; width: 100%; max-width: none; }
+#order-screen .od-mode[hidden] { display: none; }
+#order-screen .od-mode-btn {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 58px; padding: 8px 16px; text-align: left;
+  color: var(--text); border-radius: 16px; cursor: pointer;
+  background: var(--glass-bg, var(--card)) !important;
+  border: 1.5px solid var(--glass-line, var(--border)) !important;
+  box-shadow: none !important;
+  transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+}
+#order-screen .od-mode-btn:hover { border-color: var(--accent) !important; }
+#order-screen .od-mode-btn:active { transform: scale(0.98); }
+#order-screen .od-mode-ic { display: grid; place-items: center; flex: 0 0 auto; width: 38px; height: 38px; border-radius: 12px; color: var(--accent-text, var(--accent)); background: var(--accent-soft); }
+#order-screen .od-mode-ic svg { width: 22px; height: 22px; display: block; }
+#order-screen .od-mode-tx { display: flex; flex-direction: column; line-height: 1.2; }
+#order-screen .od-mode-tx strong { font-size: 1rem; font-weight: 700; }
+#order-screen .od-mode-tx small { font-size: 0.76rem; font-weight: 500; color: var(--muted); }
+#order-screen .od-mode-btn.on {
+  color: var(--on-accent, #1a1405);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b)) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 var(--glass-shine, rgba(255,255,255,.25)) !important;
+}
+#order-screen .od-mode-btn.on .od-mode-ic { color: var(--on-accent, #1a1405); background: rgba(255, 255, 255, 0.28); }
+#order-screen .od-mode-btn.on .od-mode-tx small { color: inherit; opacity: 0.8; }
+#order-screen .od-mode-btn.locked:not(.on) { opacity: 0.4; cursor: not-allowed; }
+/* nothing chosen yet: a soft gold ring asks the staff to choose */
+#order-screen .od-mode.need .od-mode-btn { border-color: var(--accent) !important; }
+#order-screen .od-mode.shake { animation: odModeShake 0.45s ease; }
+@keyframes odModeShake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+#order-screen .tv-order-tag.tag-take { color: var(--accent-text, var(--accent)); }
+
+/* ---------- Top row: Dine-in / Takeaway + search, then categories + "In stock only" ---------- */
+#order-screen .od-toprow { display: flex; align-items: center; gap: 14px; flex: 0 0 100%; width: 100%; margin: 0 0 12px; }
+#order-screen .od-toprow .od-mode { flex: 0 0 auto; width: auto; margin: 0; grid-template-columns: 250px 250px; }
+#order-screen .od-toprow .tv-search {
+  flex: 1 1 160px; min-width: 140px; max-width: none; height: 58px; margin: 0; padding: 0 16px 0 46px; font-size: 0.98rem; border-radius: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 15px center; background-size: 20px;
+}
+#order-screen .od-catrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex: 0 0 100%; width: 100%; margin: 0 0 14px; }
+#order-screen .od-catrow #order-cats { flex: 1 1 auto; margin: 0; min-width: 0; }
+#order-screen .od-catrow .tv-stock { flex: 0 0 auto; margin: 0; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
+#order-screen .od-catrow .tv-stock::before {
+  content: ''; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--muted); box-sizing: border-box;
+}
+#order-screen .od-catrow .tv-stock.tv-on::before { border-color: currentColor; background: currentColor; box-shadow: inset 0 0 0 2px var(--btn-b, #000); }
+@media (max-width: 1280px) {
+  #order-screen .od-toprow { flex-wrap: wrap; }
+  #order-screen .od-toprow .od-mode { grid-template-columns: 220px 220px; }
+}
+
+/* ---------- Order Details tabs ---------- */
+#order-screen .od-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 0 0 12px; padding: 5px; background: var(--field); border: 1px solid var(--line); border-radius: 16px; }
+#order-screen .od-tab {
+  display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 0; width: 100%; padding: 8px 4px; font-size: 0.82rem; font-weight: 600;
+  color: var(--muted); background: transparent !important; border: 1px solid transparent !important; border-radius: 12px; box-shadow: none !important; cursor: pointer;
+}
+#order-screen .od-tab:hover { color: var(--text); background: var(--hover) !important; }
+#order-screen .od-tab .od-tab-n { font-style: normal; font-size: 0.72rem; font-weight: 700; min-width: 20px; padding: 1px 6px; border-radius: 999px; background: rgba(128, 128, 128, 0.22); color: var(--text); }
+#order-screen .od-tab.zero:not(.on) { opacity: 0.5; }
+#order-screen .od-tab.on { color: var(--on-accent, #1a1405); background: linear-gradient(135deg, var(--btn-a), var(--btn-b)) !important; border-color: var(--accent) !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important; }
+#order-screen .od-tab.on .od-tab-n { background: rgba(0, 0, 0, 0.18); color: inherit; }
+#order-screen .vf-hide { display: none !important; }
+#order-screen .od-view-empty { padding: 18px 4px; text-align: center; }
+
+/* search + categories stay in view while scrolling */
+#order-screen .od-sticky { position: sticky; top: 70px; z-index: 25; flex: 0 0 100%; width: 100%; margin: 0 0 6px; padding: 12px 0 4px; background: color-mix(in srgb, var(--bg) 95%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+
+/* ----- menu cards: the photo fills the top of the card and fades softly behind the name ----- */
+#order-screen #order-menu .order-item .tv-photo,
+#order-screen #order-menu .order-item .tv-ph {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 196px;
+  width: calc(100% + 20px);
+  max-width: none;
+  height: 196px;
+  margin: -10px -10px -36px;
+  border-radius: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, rgba(0, 0, 0, 0.55) 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, rgba(0, 0, 0, 0.55) 74%, transparent 100%);
+}
+#order-screen #order-menu .order-item .tv-ph {
+  border: 0;
+  background: linear-gradient(160deg, var(--accent-soft), rgba(222, 178, 70, 0.02));
+}
+#order-screen #order-menu .order-item .tv-cat,
+#order-screen #order-menu .order-item strong {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 10px var(--panel), 0 0 4px var(--panel);
+}
+
+/* items already paid in a split bill */
+.sent-row.sent-paid { opacity: 0.6; pointer-events: none; }
+.sent-paid-tag { color: var(--accent-text); border-color: var(--accent-text); }

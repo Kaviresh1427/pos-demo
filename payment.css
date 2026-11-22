@@ -1,0 +1,60 @@
+/* ---------- Payment screen ---------- */
+.pay-open-wrap { margin-bottom: 16px; }
+
+.pay-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  margin: 0 -8px;
+  border-top: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pay-row:hover { background: var(--hover); }
+.pay-row.selected { background: var(--accent-soft); }
+.pay-row input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  flex: none;
+  accent-color: var(--accent);
+  pointer-events: none;
+}
+.pay-row .menu-info { flex: 1; }
+.pay-row .menu-price { font-size: 1rem; font-weight: 600; }
+
+.pay-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  color: var(--muted);
+}
+.pay-line.pay-grand {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.pay-methods { margin: 18px 0 14px; }
+.pay-methods button { flex: 1; }
+
+.pay-quick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.pay-change { margin: 0 0 16px; font-size: 1.2rem; font-weight: 600; text-align: right; }
+.pay-change.ok { color: var(--ok); }
+.pay-change.short { color: var(--danger); }
+
+.pay-done { text-align: center; }
+.pay-done .pay-line { justify-content: space-between; text-align: left; }
+.pay-receipt-no {
+  margin: 0 0 12px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--accent-text);
+}
+.pay-done button { margin-top: 18px; }

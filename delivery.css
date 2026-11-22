@@ -1,0 +1,95 @@
+/* ===== Delivery page (Foodpanda + Grab) ===== */
+#delivery-screen .menu-wrap {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.dl-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 6px 0 26px;
+}
+.dl-actions button {
+  flex: 1 1 220px;
+  padding: 16px 18px;
+  font-size: 1rem;
+}
+
+.dl-title {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#delivery-screen #delivery-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+#delivery-screen #delivery-list button {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+}
+#delivery-screen #delivery-list .menu-empty {
+  grid-column: 1 / -1;
+}
+
+/* the "Take payment" shortcut is gone from the Tables page: use Payment in the left menu */
+.pay-open-wrap {
+  display: none !important;
+}
+/* ===== Delivery page redesign ===== */
+#delivery-screen .menu-wrap { max-width: 1200px; }
+#delivery-screen .menu-header { margin-bottom: 4px; }
+
+/* big "new order" buttons */
+#delivery-screen .dl-actions { gap: 14px; margin: 6px 0 18px; }
+#delivery-screen .dl-actions button {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex: 1 1 260px; min-height: 64px; padding: 14px 20px; font-size: 1.08rem; font-weight: 700; border-radius: 18px;
+  color: var(--text); background: var(--field) !important; border: 1.5px solid var(--line) !important; box-shadow: none !important;
+}
+#delivery-screen .dl-actions button::before {
+  content: '+'; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; font-size: 1.4rem; font-weight: 800; color: #fff;
+}
+#new-foodpanda-btn::before { background: #d70f64; }
+#new-grab-btn::before { background: #00a84f; }
+#new-foodpanda-btn:hover { border-color: #d70f64 !important; }
+#new-grab-btn:hover { border-color: #00a84f !important; }
+
+/* summary tiles + tabs */
+.dl-tools { display: flex; align-items: stretch; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin: 0 0 16px; }
+.dl-stats { display: grid; grid-template-columns: repeat(3, minmax(150px, 1fr)); gap: 12px; flex: 1 1 520px; }
+.dl-stat { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 16px; background: var(--field); border: 1px solid var(--line); border-left: 4px solid var(--accent); }
+.dl-stat.fp { border-left-color: #d70f64; }
+.dl-stat.gr { border-left-color: #00a84f; }
+.dl-stat span { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.dl-stat strong { font-size: 1.8rem; line-height: 1.1; font-weight: 800; color: var(--text); }
+.dl-stat small { font-size: 0.8rem; color: var(--muted); }
+.dl-tabs { display: flex; align-items: center; gap: 6px; padding: 5px; border-radius: 16px; background: var(--field); border: 1px solid var(--line); align-self: flex-start; }
+.dl-tab { display: flex; align-items: center; gap: 8px; width: auto; height: 42px; padding: 0 16px; font-size: 0.92rem; font-weight: 600; color: var(--muted); background: transparent !important; border: 1px solid transparent !important; border-radius: 12px; box-shadow: none !important; cursor: pointer; white-space: nowrap; }
+.dl-tab em { font-style: normal; font-size: 0.78rem; padding: 1px 8px; border-radius: 999px; background: rgba(128, 128, 128, 0.22); color: var(--text); }
+.dl-tab.on { color: var(--on-accent, #1a1405); background: linear-gradient(135deg, var(--btn-a), var(--btn-b)) !important; border-color: var(--accent) !important; }
+.dl-tab.on em { background: rgba(0, 0, 0, 0.18); color: inherit; }
+
+/* order cards */
+#delivery-screen #delivery-list { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.dl-card { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; grid-template-areas: "badge body amt" "acts acts acts"; align-items: center; gap: 10px 14px; padding: 14px 16px; border-radius: 18px; background: var(--field); border: 1.5px solid var(--line); border-left: 5px solid var(--accent); }
+.dl-card.dl-foodpanda { border-left-color: #d70f64; }
+.dl-card.dl-grab { border-left-color: #00a84f; }
+.dl-badge { grid-area: badge; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; font-size: 1.05rem; font-weight: 800; color: #fff; background: var(--accent); }
+.dl-foodpanda .dl-badge { background: #d70f64; }
+.dl-grab .dl-badge { background: #00a84f; font-size: 1.35rem; }
+.dl-body { grid-area: body; display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.dl-body small { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.dl-body strong { font-size: 1.25rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dl-body span { font-size: 0.82rem; color: var(--muted); }
+.dl-amt { grid-area: amt; font-size: 1.25rem; font-weight: 800; color: var(--accent-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dl-acts { grid-area: acts; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dl-acts button { width: 100%; min-height: 44px; padding: 0 10px; font-size: 0.95rem; font-weight: 700; border-radius: 12px; }
+.dl-pay { color: var(--on-accent, #1a1405); background: linear-gradient(135deg, var(--btn-a), var(--btn-b)) !important; border: 1px solid var(--accent) !important; box-shadow: none !important; cursor: pointer; }
+@media (max-width: 760px) { .dl-stats { grid-template-columns: 1fr; } }

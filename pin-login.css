@@ -1,0 +1,55 @@
+/* ===== PIN login pop-up ===== */
+body:not(.pin-fallback) #login-screen { display: none !important; }
+
+.pin-screen { position: fixed; inset: 0; z-index: 3000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 20px; color: var(--text); overflow: auto; background: var(--bg); isolation: isolate; }
+.pin-screen[hidden] { display: none; }
+/* soft coloured lights behind the glass */
+.pin-screen::before, .pin-screen::after { content: ''; position: fixed; z-index: -1; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+.pin-screen::before { width: 520px; height: 520px; left: 8%; top: 10%; background: radial-gradient(circle, rgba(34, 160, 90, 0.75), rgba(34, 160, 90, 0) 70%); }
+.pin-screen::after { width: 460px; height: 460px; right: 8%; bottom: 8%; background: radial-gradient(circle, rgba(235, 180, 50, 0.6), rgba(235, 180, 50, 0) 70%); }
+
+/* the glass card */
+.pin-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); width: min(780px, 100%); background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05)); -webkit-backdrop-filter: blur(26px) saturate(160%); backdrop-filter: blur(26px) saturate(160%); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 30px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3); overflow: hidden; text-align: left; }
+.pin-card.shake { animation: pin-shake 0.4s; }
+@keyframes pin-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-10px); } 40% { transform: translateX(10px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
+
+.pin-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 36px 28px; text-align: center; border-right: 1px solid rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.05); }
+.pin-logo { width: 150px; height: 150px; object-fit: contain; border-radius: 30px; background: rgba(255, 255, 255, 0.94); padding: 6px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); }
+.pin-brand h1 { margin: 12px 0 0; font-size: 1.7rem; }
+.pin-sub { margin: 0; font-size: 0.78rem; letter-spacing: 3px; color: var(--muted); }
+
+.pin-pad { display: flex; flex-direction: column; align-items: center; padding: 30px 28px; }
+.pin-pad h2 { margin: 0 0 14px; font-size: 1.2rem; }
+.pin-dots { display: flex; gap: 14px; margin-bottom: 8px; }
+.pin-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--muted); transition: background 0.15s, transform 0.15s; }
+.pin-dot.on { background: var(--accent-text); border-color: var(--accent-text); transform: scale(1.1); box-shadow: 0 0 12px var(--accent-text); }
+.pin-msg { min-height: 22px; margin: 4px 0 8px; font-size: 0.9rem; color: var(--muted); text-align: center; }
+.pin-msg.bad { color: var(--danger); font-weight: 600; }
+.pin-keys { display: grid; grid-template-columns: repeat(3, 76px); gap: 12px; }
+.pin-key { width: 76px; height: 62px; padding: 0; font-size: 1.5rem; font-weight: 700; color: var(--text); background: rgba(255, 255, 255, 0.1); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 18px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25); cursor: pointer; transition: background 0.12s, transform 0.08s; }
+.pin-key:hover { background: rgba(255, 255, 255, 0.18); }
+.pin-key:active { background: var(--accent-soft); transform: scale(0.95); }
+.pin-key-small { font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+
+.pin-foot { text-align: center; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+.pin-powered { font-weight: 600; letter-spacing: 0.3px; }
+.pin-help a { color: var(--accent-text); text-decoration: none; font-weight: 600; }
+
+@media (max-width: 640px) {
+  .pin-card { grid-template-columns: 1fr; }
+  .pin-brand { border-right: 0; border-bottom: 1px solid var(--line); padding: 20px; }
+  .pin-logo { width: 90px; height: 90px; }
+}
+@media (max-height: 640px) {
+  .pin-logo { width: 100px; height: 100px; }
+  .pin-key { height: 50px; }
+  .pin-brand, .pin-pad { padding: 18px 20px; }
+}
+
+/* light theme: whiter glass */
+[data-theme="light"] .pin-card { background: linear-gradient(145deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.4)); border-color: rgba(255, 255, 255, 0.9); box-shadow: 0 30px 80px rgba(20, 60, 40, 0.18), inset 0 1px 0 #fff; }
+[data-theme="light"] .pin-brand { background: rgba(255, 255, 255, 0.35); border-right-color: rgba(20, 60, 40, 0.08); }
+[data-theme="light"] .pin-key { background: rgba(255, 255, 255, 0.7); border-color: rgba(255, 255, 255, 0.95); box-shadow: 0 4px 12px rgba(20, 60, 40, 0.08), inset 0 1px 0 #fff; }
+[data-theme="light"] .pin-key:hover { background: rgba(255, 255, 255, 0.95); }
+[data-theme="light"] .pin-screen::before { background: radial-gradient(circle, rgba(34, 160, 90, 0.45), rgba(34, 160, 90, 0) 70%); }
+[data-theme="light"] .pin-screen::after { background: radial-gradient(circle, rgba(235, 180, 50, 0.45), rgba(235, 180, 50, 0) 70%); }

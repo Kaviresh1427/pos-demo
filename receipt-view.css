@@ -1,0 +1,111 @@
+/* =========================================================
+   RECEIPT DESIGN (UNPAID bill / PAID receipt)
+   Everything is sized in "em", so the screen paper and the
+   printed paper have exactly the same proportions.
+   ========================================================= */
+.rcpt {
+  --rv-font: Arial, Helvetica, sans-serif;
+  --rv-head: Georgia, 'Times New Roman', serif;
+  font-family: var(--rv-font);
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #000;
+  background: #fff;
+  text-align: left;
+}
+.rcpt * { box-sizing: border-box; }
+.rcpt .rv-ic { display: inline-block; width: 1.05em; height: 1.05em; vertical-align: -0.15em; }
+.rcpt .rv-ic svg { width: 100%; height: 100%; display: block; }
+
+/* header */
+.rv-header { text-align: center; }
+.rv-logo { display: block; width: 4.4em; height: 3.6em; margin: 0 auto 0.1em; }
+.rv-logo svg { width: 100%; height: 100%; display: block; }
+.rv-shop { font-family: var(--rv-head); font-size: 2.45em; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em; }
+.rv-tagline { display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 0.1em 0 0.55em; font-family: var(--rv-head); font-size: 1.2em; font-weight: 700; letter-spacing: 0.22em; }
+.rv-tagline::before, .rv-tagline::after { content: ''; width: 1.8em; height: 1.5px; background: #000; }
+.rv-addr { font-size: 0.95em; font-weight: 600; }
+.rv-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3em 0.9em; margin-top: 0.4em; font-size: 0.95em; }
+.rv-contact-item { display: inline-flex; align-items: center; gap: 0.4em; }
+.rv-contact-item + .rv-contact-item { padding-left: 0.9em; border-left: 1.5px solid #000; }
+.rv-solid { border-top: 1.5px solid #000; margin: 0.7em 0 0.6em; }
+.rv-dash { border-top: 1.5px dashed #000; margin: 0.7em 0; }
+
+/* RECEIPT + badge */
+.rv-title { display: flex; align-items: center; justify-content: space-between; gap: 0.6em; }
+.rv-h1 { font-family: var(--rv-head); font-size: 2em; font-weight: 800; line-height: 1.05; letter-spacing: 0.01em; }
+.rv-no { margin-top: 0.15em; font-size: 0.95em; }
+.rv-badge { display: flex; align-items: center; gap: 0.45em; padding: 0.35em 0.7em 0.35em 0.55em; border: 2px solid #000; border-radius: 0.6em; flex: 0 0 auto; }
+.rv-badge-ic { width: 2.2em; height: 2.2em; }
+.rv-badge-ic svg { width: 100%; height: 100%; display: block; }
+.rv-badge-text { display: flex; flex-direction: column; align-items: center; line-height: 1.05; }
+.rv-badge-text strong { font-size: 1.45em; font-weight: 800; letter-spacing: 0.02em; }
+.rv-badge-text small { font-size: 0.72em; font-weight: 600; }
+
+/* date / table / staff */
+.rv-info { margin-top: 0.7em; }
+.rv-irow { display: grid; grid-template-columns: 5.4em 0.9em 1fr; align-items: baseline; padding: 0.08em 0; font-size: 1em; }
+.rv-irow span:nth-child(3) { overflow-wrap: anywhere; }
+
+/* items */
+.rv-trow { display: grid; grid-template-columns: 1.3em minmax(0, 1fr) 1.7em 5.5em 6em; column-gap: 0.3em; align-items: baseline; padding: 0.28em 0.3em; font-size: 0.94em; }
+.rv-thead { margin-bottom: 0.2em; font-weight: 700; background: #ECECEC; border-radius: 0.25em; padding-top: 0.32em; padding-bottom: 0.32em; }
+.rv-trow span:nth-child(3) { text-align: center; }
+.rv-trow span:nth-child(4), .rv-trow span:nth-child(5) { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rv-trow span:nth-child(2) { overflow-wrap: anywhere; }
+.rv-sub { margin: -0.15em 0 0.15em 1.9em; font-size: 0.88em; font-style: italic; }
+.rv-empty { padding: 0.6em 0; text-align: center; }
+
+/* totals */
+.rv-totals { margin: 0 0 0.45em; padding-left: 3.5em; }
+.rv-sline { display: flex; justify-content: space-between; gap: 0.5em; padding: 0.14em 0.4em 0.14em 0; }
+.rv-sline span:last-child { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rv-grand { display: flex; align-items: center; justify-content: space-between; gap: 0.5em; padding: 0.3em 0.7em; border: 2px solid #000; border-radius: 0.6em; }
+.rv-grand span:first-child { font-size: 1.15em; font-weight: 800; letter-spacing: 0.01em; }
+.rv-grand span:last-child { font-size: 1.6em; font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* QR (unpaid) / payment details (paid) */
+.rv-pay { display: grid; grid-template-columns: auto 1.5px minmax(0, 1fr); gap: 0.7em; align-items: center; margin-top: 0.85em; padding: 0 0.3em; }
+.rv-vline { align-self: stretch; background: #000; min-height: 3.4em; }
+.rv-qr { display: block; width: 6.4em; height: 6.4em; object-fit: contain; }
+.rv-paynow { display: flex; align-items: center; gap: 0.4em; font-size: 1.5em; }
+.rv-paynow .rv-ic { width: 1.1em; height: 1.1em; }
+.rv-scan { margin-top: 0.2em; font-size: 0.95em; }
+.rv-pay-ic { display: block; width: 2.8em; height: 2.8em; }
+.rv-pay-ic svg { width: 100%; height: 100%; display: block; }
+.rv-pay-rows .rv-irow { grid-template-columns: 8.2em 0.8em 1fr; font-size: 0.92em; white-space: nowrap; }
+.rv-pay-rows .rv-irow span:nth-child(3) { white-space: normal; }
+
+.rv-thanks { margin-top: 0.1em; text-align: center; font-size: 1.35em; font-style: italic; font-family: var(--rv-head); }
+
+/* ---------- on the Take Payment page (paper on the printer) ---------- */
+.pp-paper { display: block; overflow-y: auto; overflow-x: hidden; padding: 14px 14px 0; background: #fff; }
+.pp-paper .rcpt { --text: #000; --muted: #000; width: 100%; padding-bottom: 8px; }
+.pp-paper .rcpt::after {
+  content: ''; display: block; height: 7px; margin: 12px -14px 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M0 0h12L6 7z' fill='%23fff'/%3E%3C/svg%3E") repeat-x;
+  transform: translateY(7px);
+}
+.pp-final { display: block; }
+
+/* Dine-in / Take away parts */
+.rv-section { display: flex; align-items: center; gap: 0.45em; margin: 0.7em 0 0.25em; padding: 0.3em 0.6em; background: #000; color: #fff; border-radius: 0.5em; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.rv-section .rv-ic { width: 1.15em; height: 1.15em; }
+.rv-section b { font-weight: 800; letter-spacing: 0.12em; }
+.rv-section em { margin-left: auto; font-style: normal; font-size: 0.85em; font-weight: 600; opacity: 0.9; }
+.rv-table .rv-section + .rv-trow { margin-top: 0; }
+.rv-sectotal { display: flex; justify-content: space-between; gap: 0.5em; margin: 0.35em 0 0.2em; padding: 0.3em 0.6em; background: #ECECEC; border-radius: 0.5em; font-weight: 800; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.rv-sectotal span:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rv-trow:not(.rv-thead) { border-bottom: 1px dotted rgba(0,0,0,.35); }
+
+/* ---- font styles: choose one in SHOP.font (receipt-view.js) ---- */
+.rcpt.rv-font-modern { --rv-font: 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif; --rv-head: 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif; }
+.rcpt.rv-font-mono { --rv-font: 'Courier New', Courier, monospace; --rv-head: 'Courier New', Courier, monospace; }
+.rcpt.rv-font-friendly { --rv-font: Calibri, Carlito, 'Trebuchet MS', Arial, sans-serif; --rv-head: 'Trebuchet MS', Calibri, Carlito, Arial, sans-serif; }
+.rcpt.rv-font-elegant { --rv-font: Georgia, 'Times New Roman', serif; --rv-head: Georgia, 'Times New Roman', serif; }
+
+.rv-thead { align-items: end; line-height: 1.15; }
+.rv-thead span:nth-child(4), .rv-thead span:nth-child(5) { white-space: normal; }
+
+/* company logo picture (replaces the chef hat) */
+.rv-logo-img { display: block; max-width: 11em; max-height: 4.6em; width: auto; height: auto; margin: 0 auto 0.15em; object-fit: contain; filter: grayscale(1) contrast(1.15); }

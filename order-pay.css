@@ -1,0 +1,85 @@
+/* ===== Pay-now panel on the order page ===== */
+.op-wrap { margin-top: 10px; }
+.op-open-btn,
+.op-confirm-btn { width: 100%; padding: 14px; font-size: 1rem; font-weight: 600; border-radius: 10px; }
+.op-open-btn[hidden] { display: none; }
+.op-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.5);
+}
+.op-overlay[hidden] { display: none; }
+.op-panel {
+  width: min(440px, 100%);
+  max-height: 94vh;
+  overflow-y: auto;
+  padding: 22px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+.op-title { margin: 0 0 12px; font-size: 1.2rem; font-weight: 700; }
+.op-msg { margin: 0 0 12px; padding: 9px 12px; border-radius: 10px; font-size: 0.9rem; }
+.op-msg[hidden] { display: none; }
+.op-msg-error { color: var(--danger); background: var(--danger-bg); border: 1px solid var(--danger-line); }
+.op-msg-ok { color: var(--ok); background: var(--ok-bg); border: 1px solid var(--ok-line); }
+.op-main[hidden], .op-done[hidden] { display: none; }
+
+.op-row { display: flex; gap: 8px; }
+.op-row button { flex: 1; }
+.op-disc-toggle { margin-bottom: 8px; }
+.op-disc-box {
+  margin: 0 0 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--field);
+}
+.op-disc-box input { width: 100%; box-sizing: border-box; margin-top: 8px; }
+.op-disc-box .op-row:last-child { margin-top: 10px; }
+
+.op-line { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 0.92rem; color: var(--muted); }
+.op-line[hidden] { display: none; }
+.op-line span:last-child { color: var(--text); font-weight: 500; }
+.op-grand {
+  margin: 8px 0 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  box-shadow: 0 8px 22px var(--btn-shadow);
+}
+.op-grand span:last-child { color: var(--on-accent); font-weight: 700; }
+
+.op-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 12px;
+  background: var(--tag);
+  border-radius: 10px;
+}
+.op-methods button { padding: 10px; font-size: 0.9rem; font-weight: 500; border-radius: 8px; }
+.op-methods button.secondary { color: var(--muted); background: transparent; border-color: transparent; box-shadow: none; }
+
+.op-cash label { display: block; margin-bottom: 6px; font-size: 0.85rem; color: var(--muted); }
+.op-quick { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.op-change { margin: 6px 0 12px; padding: 8px 12px; border-radius: 10px; font-size: 1.1rem; font-weight: 600; text-align: center; }
+.op-change:empty { display: none; }
+.op-change.ok { color: var(--ok); background: var(--ok-bg); }
+.op-change.short { color: var(--danger); background: var(--danger-bg); }
+.op-close { width: 100%; margin-top: 8px; }
+
+.op-receipt-no { margin: 0; font-size: 1.15rem; font-weight: 700; text-align: center; color: var(--ok); }
+.op-receipt-sub { margin: 2px 0 10px; text-align: center; font-size: 0.85rem; color: var(--muted); }
+.op-done .op-confirm-btn { margin-top: 6px; }

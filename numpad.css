@@ -1,0 +1,49 @@
+/* ===== Glass number pad ===== */
+.np-back { position: fixed; inset: 0; z-index: 2600; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, 0.38); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.np-back[hidden] { display: none; }
+.np-pad { position: relative; width: 320px; max-width: 100%; padding: 14px; box-sizing: border-box; color: var(--text); background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06)), rgba(18, 36, 28, 0.55); -webkit-backdrop-filter: blur(26px) saturate(170%); backdrop-filter: blur(26px) saturate(170%); border: 1px solid rgba(255, 255, 255, 0.24); border-radius: 26px; box-shadow: 0 26px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.32); overflow: hidden; isolation: isolate; }
+.np-pad[hidden] { display: none; }
+.np-pad::before, .np-pad::after { content: ''; position: absolute; z-index: -1; border-radius: 50%; filter: blur(34px); pointer-events: none; }
+.np-pad::before { width: 170px; height: 170px; left: -50px; top: -40px; background: radial-gradient(circle, rgba(34, 160, 90, 0.7), rgba(34, 160, 90, 0) 70%); }
+.np-pad::after { width: 150px; height: 150px; right: -40px; bottom: -40px; background: radial-gradient(circle, rgba(235, 180, 50, 0.55), rgba(235, 180, 50, 0) 70%); }
+.np-pad.np-in { animation: np-pop 0.16s ease-out; }
+@keyframes np-pop { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: none; } }
+
+.np-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin: 0 0 10px 4px; }
+.np-titles { min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 3px; }
+.np-title { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.3px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.np-hint { font-size: 0.74rem; font-weight: 600; color: var(--accent-text); }
+.np-hint[hidden] { display: none; }
+.np-x { flex: none; width: 34px; height: 34px; margin: 0; padding: 0; display: grid; place-items: center; color: var(--text); background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 50%; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25); cursor: pointer; }
+.np-x:hover { background: var(--danger-bg, rgba(220, 70, 70, 0.25)); color: var(--danger); }
+/* the screen: value is pushed to the right, like a bank terminal */
+.np-screen { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; min-height: 56px; margin-bottom: 12px; padding: 8px 16px; box-sizing: border-box; background: rgba(0, 0, 0, 0.28); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 16px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25); }
+.np-unit { font-size: 0.95rem; font-weight: 700; color: var(--accent-text); }
+.np-unit-l { margin-right: auto; }
+.np-val { font-size: 2rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; text-align: right; overflow: hidden; text-overflow: clip; white-space: nowrap; }
+
+.np-keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.np-key { height: 58px; width: auto; padding: 0; margin: 0; display: grid; place-items: center; font-size: 1.4rem; font-weight: 700; color: var(--text); background: rgba(255, 255, 255, 0.11); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26); cursor: pointer; transition: background 0.12s, transform 0.08s; }
+.np-key:hover { background: rgba(255, 255, 255, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+.np-key:active { background: var(--accent-soft); transform: scale(0.94); }
+.np-key-fn { color: var(--danger); }
+.np-key-off { opacity: 0.25; pointer-events: none; }
+
+.np-foot { display: grid; grid-template-columns: 1fr 1.6fr; gap: 9px; margin-top: 10px; }
+.np-btn { height: 48px; width: auto; margin: 0; padding: 0; font-size: 1rem; font-weight: 700; border-radius: 16px; cursor: pointer; transition: transform 0.08s, filter 0.12s; }
+.np-btn:active { transform: scale(0.96); }
+.np-clear { color: var(--text); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.22); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+.np-ok { color: var(--on-accent, #fff); background: linear-gradient(135deg, var(--btn-a), var(--btn-b)); border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 8px 20px var(--btn-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+.np-ok:hover { filter: brightness(1.08); }
+
+
+/* light theme: whiter glass */
+[data-theme="light"] .np-pad { background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55)); border-color: rgba(255, 255, 255, 0.95); box-shadow: 0 26px 70px rgba(20, 60, 40, 0.25), inset 0 1px 0 #fff; }
+[data-theme="light"] .np-pad::before { background: radial-gradient(circle, rgba(34, 160, 90, 0.4), rgba(34, 160, 90, 0) 70%); }
+[data-theme="light"] .np-pad::after { background: radial-gradient(circle, rgba(235, 180, 50, 0.4), rgba(235, 180, 50, 0) 70%); }
+[data-theme="light"] .np-screen { background: rgba(255, 255, 255, 0.7); border-color: rgba(20, 60, 40, 0.12); box-shadow: inset 0 2px 6px rgba(20, 60, 40, 0.08); }
+[data-theme="light"] .np-key { background: rgba(255, 255, 255, 0.8); border-color: rgba(255, 255, 255, 0.95); box-shadow: 0 4px 12px rgba(20, 60, 40, 0.08), inset 0 1px 0 #fff; }
+[data-theme="light"] .np-key:hover { background: #fff; }
+[data-theme="light"] .np-clear { background: rgba(255, 255, 255, 0.8); border-color: rgba(20, 60, 40, 0.14); }
+[data-theme="light"] .np-back { background: rgba(20, 50, 35, 0.22); }
+[data-theme="light"] .np-x { background: rgba(255, 255, 255, 0.85); border-color: rgba(20, 60, 40, 0.14); }

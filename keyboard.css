@@ -1,0 +1,36 @@
+/* ===== Glass on-screen keyboard (search boxes) ===== */
+.kb-pad { position: fixed; z-index: 2550; left: 50%; bottom: 14px; transform: translateX(-50%); width: min(880px, calc(100vw - 24px)); box-sizing: border-box; padding: 10px 14px 14px; color: var(--text); background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06)), rgba(18, 36, 28, 0.58); -webkit-backdrop-filter: blur(26px) saturate(170%); backdrop-filter: blur(26px) saturate(170%); border: 1px solid rgba(255, 255, 255, 0.24); border-radius: 26px; box-shadow: 0 26px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.32); overflow: hidden; isolation: isolate; }
+.kb-pad[hidden] { display: none; }
+.kb-pad::before, .kb-pad::after { content: ''; position: absolute; z-index: -1; border-radius: 50%; filter: blur(40px); pointer-events: none; }
+.kb-pad::before { width: 260px; height: 200px; left: -60px; top: -60px; background: radial-gradient(circle, rgba(34, 160, 90, 0.65), rgba(34, 160, 90, 0) 70%); }
+.kb-pad::after { width: 240px; height: 200px; right: -50px; bottom: -60px; background: radial-gradient(circle, rgba(235, 180, 50, 0.5), rgba(235, 180, 50, 0) 70%); }
+.kb-pad.kb-in { animation: kb-pop 0.16s ease-out; }
+@keyframes kb-pop { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%); } }
+
+.kb-head { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 8px 6px; }
+.kb-title { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.3px; color: var(--muted); }
+.kb-x { width: 32px; height: 32px; margin: 0; padding: 0; display: grid; place-items: center; color: var(--text); background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 50%; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25); cursor: pointer; }
+.kb-x:hover { color: var(--danger); }
+
+.kb-rows { display: flex; flex-direction: column; gap: 7px; }
+.kb-row { display: flex; justify-content: center; gap: 7px; }
+.kb-key { flex: 1 1 0; max-width: 72px; height: 46px; min-width: 0; margin: 0; padding: 0; display: grid; place-items: center; font-size: 1.15rem; font-weight: 700; color: var(--text); background: rgba(255, 255, 255, 0.11); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 13px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26); cursor: pointer; transition: background 0.12s, transform 0.08s; }
+.kb-key:hover { background: rgba(255, 255, 255, 0.2); }
+.kb-key:active { background: var(--accent-soft); transform: scale(0.94); }
+.kb-fn { color: var(--muted); }
+.kb-back { color: var(--danger); }
+.kb-row-3 .kb-fn { max-width: 96px; flex: 1.4 1 0; }
+.kb-shift.on { color: var(--on-accent, #fff); background: linear-gradient(135deg, var(--btn-a), var(--btn-b)); border-color: rgba(255, 255, 255, 0.25); }
+.kb-bottom .kb-wide { max-width: 130px; flex: 1.5 1 0; font-size: 0.95rem; }
+.kb-bottom .kb-space { max-width: none; flex: 6 1 0; font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+.kb-bottom .kb-done { max-width: 180px; flex: 2 1 0; font-size: 1rem; color: var(--on-accent, #fff); background: linear-gradient(135deg, var(--btn-a), var(--btn-b)); border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 8px 20px var(--btn-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+
+@media (max-width: 560px) { .kb-key { height: 42px; font-size: 1rem; border-radius: 11px; } .kb-row, .kb-rows { gap: 5px; } }
+
+/* light theme: whiter glass */
+[data-theme="light"] .kb-pad { background: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.6)); border-color: rgba(255, 255, 255, 0.95); box-shadow: 0 26px 70px rgba(20, 60, 40, 0.28), inset 0 1px 0 #fff; }
+[data-theme="light"] .kb-pad::before { background: radial-gradient(circle, rgba(34, 160, 90, 0.35), rgba(34, 160, 90, 0) 70%); }
+[data-theme="light"] .kb-pad::after { background: radial-gradient(circle, rgba(235, 180, 50, 0.4), rgba(235, 180, 50, 0) 70%); }
+[data-theme="light"] .kb-key { background: rgba(255, 255, 255, 0.85); border-color: rgba(255, 255, 255, 0.95); box-shadow: 0 3px 10px rgba(20, 60, 40, 0.08), inset 0 1px 0 #fff; }
+[data-theme="light"] .kb-key:hover { background: #fff; }
+[data-theme="light"] .kb-x { background: rgba(255, 255, 255, 0.85); border-color: rgba(20, 60, 40, 0.14); }
